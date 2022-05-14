@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
-import matplotlib.lines as mlines
 import altair as alt
 
 with st.echo(code_location='below'):
@@ -165,45 +164,7 @@ with st.echo(code_location='below'):
     )
     chart
 
-    """
-    Посмотрим, как быстро трек стал хитом: когда был релиз, а когда попал в список хитов
-    """
-
-    ### FROM: Код основан на 18 пункте отсюда: https://habr.com/ru/post/468295/  (но поменяла под себя)
-    left_label = [str(c) + ', '+ str(round(y)) for c, y in zip(df_selection2["Song title"], df_selection2['Year released'])]
-    right_label = [str(c) + ', '+ str(round(y)) for c, y in zip(df_selection2["Song title"], df_selection2['Became hit'])]
-
-    def newline(p1, p2, color='black'):
-        ax = plt.gca()
-        l = mlines.Line2D([p1[0],p2[0]], [p1[1],p2[1]], color='purple', marker='o', markersize=6)
-        ax.add_line(l)
-        return l
-
-
-    fig, ax = plt.subplots(1,1,figsize=(8,6), dpi= 80)
-    ax.vlines(x=1, ymin=1974, ymax=2024, color='black', alpha=0.7, linewidth=1, linestyles='dotted')
-    ax.vlines(x=3, ymin=1974, ymax=2024, color='black', alpha=0.7, linewidth=1, linestyles='dotted')
-
-    ax.scatter(y=df_selection2['Year released'], x=np.repeat(1, df_selection2.shape[0]), s=10, color='black', alpha=0.7)
-    ax.scatter(y=df_selection2['Became hit'], x=np.repeat(3, df_selection2.shape[0]), s=10, color='black', alpha=0.7)
-
-    for p1, p2, c in zip(df_selection2['Year released'], df_selection2['Became hit'], df_selection2['Song title']):
-        newline([1,p1], [3,p2])
-
-    ax.text(1-0.05, 2024, 'Released', horizontalalignment='right', verticalalignment='center', fontdict={'size':12, 'weight':600})
-    ax.text(3+0.05, 2024, 'Became hit', horizontalalignment='left', verticalalignment='center', fontdict={'size':12, 'weight':600})
-
-    ax.set(xlim=(0,4), ylim=(1974,2024), ylabel='Years')
-    ax.set_xticks([1,3])
-    ax.set_xticklabels([" ", " "])
-    plt.yticks(np.arange(1974, 2024, 3), fontsize=10)
-
-    plt.gca().spines["top"].set_alpha(.0)
-    plt.gca().spines["bottom"].set_alpha(.0)
-    plt.gca().spines["right"].set_alpha(.0)
-    plt.gca().spines["left"].set_alpha(.0)
-    st.pyplot(fig)
-### END FROM
+    
     """
     Спасибо, что заглянул(-а)!
     """
